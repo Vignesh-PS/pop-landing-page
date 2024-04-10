@@ -12,7 +12,7 @@ export default function FeaturesBlocks() {
 
                     {/* Section header */}
                     <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20 ">
-                        <h2 className="h2 mb-4">Help us building POP</h2>
+                        <h2 className="h2 mb-4">Help us building Proof of Passport</h2>
                         <p className="text-xl text-gray-300">Proof of Passport lets users scan the NFC chip in their government-issued passport and prove the correctness of the signature in a zk-SNARK.</p>
                     </div>
 
@@ -37,7 +37,6 @@ export default function FeaturesBlocks() {
                             <div className='flex flex-col items-center gap-x-3 w-full border-t border-b border-[#3e3e3e] p-3 max-h-fit bg-[#232323]'>
 
                                 <h4 className="text-md text-gray-200  leading-snug tracking-tight mb-1">Help us to enhance the passport generator, by adding support for more countries.</h4>
-                                <h4 className="text-md text-gray-200  leading-snug tracking-tight mb-1">Help us to enhance the passport generator, by adding support for more countries.</h4>
                             </div>
                             <div className='flex flex-row items-center gap-x-1.5 w-full p-2 md:p-3'>
                                 <div className='bg-[#11233e] text-[#0090ff] rounded-full px-2 py-0.5 text-xs font-bold md:text-sm  md:px-3'>JavaScript</div>
@@ -45,10 +44,10 @@ export default function FeaturesBlocks() {
                                 <div className='bg-[#2d2200] text-[#f5d90a] rounded-full px-2 py-0.5 text-xs font-bold md:text-sm  md:px-3'>Bounties</div>
 
                                 <div className='flex-grow'></div>
-                                <div className=' flex flex-row  items-center gap-x-1.5 bg-[#232323] rounded-lg p-2 border border-[#3e3e3e] hover:bg-gray-300 cursor-pointer place-self-end'>
+                                <a href="https://t.me/proofofpassport" target="_blank" rel="noopener noreferrer" className='flex flex-row items-center gap-x-1.5 bg-[#232323] rounded-lg p-2 border border-[#3e3e3e] hover:bg-gray-300 cursor-pointer place-self-end'>
                                     <div className='text-sm md:text-md '>Contribute</div>
-                                    <ExternalLink className='  h-4  w-4 md:h-5 md:w-5' />
-                                </div>
+                                    <ExternalLink className=' h-4  w-4 md:h-5 md:w-5' />
+                                </a>
 
                             </div>
                         </div>
@@ -69,16 +68,16 @@ export default function FeaturesBlocks() {
                             </div>
 
                             <div className='flex flex-col flex-grow items-center gap-x-3 w-full border-t border-b border-[#3e3e3e] p-3 max-h-fit bg-[#232323]'>
-                                <h4 className="text-md text-gray-200  leading-snug tracking-tight mb-1">Create more primitives hash and sig algorythms and implement them into our circuits </h4>
+                                <h4 className="text-md text-gray-200  leading-snug tracking-tight mb-1">Create more primitive hash and sig algorithms, and implement them into our circuits </h4>
                             </div>
                             <div className='flex flex-row items-center gap-x-1.5 w-full p-2 md:p-3 '>
                                 <div className=' bg-[#381b02] text-[#f7670a] px-2 py-0.5 text-xs rounded-full font-bold md:text-sm  md:px-3'>Circom</div>
                                 <div className='bg-[#2d2200] text-[#f5d90a] px-2 py-0.5 text-xs rounded-full font-bold md:text-sm  md:px-3'>Bounties</div>
                                 <div className='flex-grow'></div>
-                                <div className=' flex flex-row  items-center gap-x-1.5 bg-[#232323] rounded-lg p-2 border border-[#3e3e3e] hover:bg-gray-300 cursor-pointer place-self-end'>
+                                <a href="https://t.me/proofofpassport" target="_blank" rel="noopener noreferrer" className='flex flex-row items-center gap-x-1.5 bg-[#232323] rounded-lg p-2 border border-[#3e3e3e] hover:bg-gray-300 cursor-pointer place-self-end'>
                                     <div className='text-sm md:text-md '>Contribute</div>
                                     <ExternalLink className=' h-4  w-4 md:h-5 md:w-5' />
-                                </div>
+                                </a>
 
                             </div>
                         </div>

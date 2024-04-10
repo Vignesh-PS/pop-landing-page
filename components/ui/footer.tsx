@@ -98,7 +98,7 @@ export default function Footer() {
           </ul>
 
           {/* Copyrights note */}
-          <div className="text-sm text-gray-600 mr-4">&copy;proofofpassport.com. MIT Liscence.</div>
+          <div className="text-sm text-gray-600 mr-4">&copy;proofofpassport.com. MIT Licence.</div>
 
         </div>
 

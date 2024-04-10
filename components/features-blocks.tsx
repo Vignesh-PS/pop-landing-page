@@ -43,7 +43,7 @@ export default function FeaturesBlocks() {
                 <Flame className=' h-8  w-8' />
               </div>
               <h4 className="text-xl text-gray-200 font-bold leading-snug tracking-tight mb-1">Mint SBT</h4>
-              <p className="text-gray-300 text-center">Users can mint Soul Bond Token after generation their ZK Proof and interact with any dApps.</p>
+              <p className="text-gray-300 text-center">Users can mint Soulbound Token after generating their ZK Proof and interact with any dApps.</p>
             </div>
 
 

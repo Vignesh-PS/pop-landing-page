@@ -45,7 +45,7 @@ export default function ModalVideo({
                 <linearGradient x1="50%" y1="0%" x2="50%" y2="99.24%" id="hero-ill-b">
                   <stop stopColor="#FFF" offset="0%" />
                   <stop stopColor="#EAEAEA" offset="48.57%" />
-                  <stop stopColor="#DFDFDF" stopOpacity="0" offset="100%" />
+                  <stop stopColor="#DFDFDF" stoProof of Passportacity="0" offset="100%" />
                 </linearGradient>
                 <radialGradient cx="21.152%" cy="86.063%" fx="21.152%" fy="86.063%" r="79.941%" id="hero-ill-e">
                   <stop stopColor="#4FD1C5" offset="0%" />

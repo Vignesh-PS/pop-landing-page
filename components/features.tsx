@@ -5,7 +5,10 @@ import { Transition } from '@headlessui/react'
 import Image from 'next/image'
 import FeaturesBg from '@/public/images/features-bg.png'
 import FeaturesElement from '@/public/images/features-element.png'
-import { Camera, Cpu, Nfc } from 'lucide-react'
+import { Camera, Cpu, LayoutGrid, Nfc, PenTool } from 'lucide-react'
+import SCAN_SCREEN from '@/public/images/scanscreen.png'
+import APP_SCREEN from '@/public/images/appscreen.png'
+import PROVE_SCREEN from '@/public/images/provescreen.png'
 
 export default function Features() {
 
@@ -26,15 +29,13 @@ export default function Features() {
 
       {/* Section background (needs .relative class on parent and next sibling elements) */}
       <div className="absolute inset-0  pointer-events-none mb-16" aria-hidden="true"></div>
-      <div className="absolute left-0 right-0 m-auto w-px p-px h-20 bg-[#232323] transform -translate-y-1/2"></div>
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="pt-12 md:pt-20">
+        <div className="pt-0 md:pt-0">
 
           {/* Section header */}
           <div id="1" className="scroll-mt-20"></div>
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
-            <h1 className="h2 mb-4">Proof of Passport</h1>
             <p className="text-xl text-gray-200">Proof of Passport lets users scan the NFC chip in their government-issued passport and prove the correctness of the signature in a zk-SNARK.</p>
           </div>
 
@@ -56,11 +57,11 @@ export default function Features() {
                 >
                   <div>
                     <div className="font-bold leading-snug tracking-tight mb-1">Scan you passport</div>
-                    <div className="text-gray-600 text-sm">Scan your passport using the camera of your phone</div>
+                    <div className="text-gray-600 text-sm">Scan your passport using the camera and NFC chip of your phone</div>
                   </div>
                   <div className='flex flex-grow'></div>
                   <div className="flex justify-center items-center  bg-[#1c1c1c] rounded-lg border border-[#343434] p-2 shadow flex-shrink-0 ml-3">
-                    <Camera className='h-6 w-auto' />
+                    <Nfc className='h-6 w-auto' />
                   </div>
                 </a>
 
@@ -70,13 +71,13 @@ export default function Features() {
                   onClick={(e) => { e.preventDefault(); setTab(2); }}
                 >
                   <div>
-                    <div className="font-bold leading-snug tracking-tight mb-1">Read your passport</div>
-                    <div className="text-gray-600 text-sm">Hold your passport next to the NFC chips of your phone</div>
+                    <div className="font-bold leading-snug tracking-tight mb-1">Select the app</div>
+                    <div className="text-gray-600 text-sm">Select the app you want to use Proof of Passport with, you can also mint a SBT</div>
                   </div>
                   <div className='flex flex-grow'></div>
 
                   <div className="flex justify-center items-center  bg-[#1c1c1c] rounded-lg border border-[#343434] p-2 shadow flex-shrink-0 ml-3">
-                    <Nfc className='h-6 w-auto' />
+                    <LayoutGrid className='h-6 w-auto' />
                   </div>
                 </a>
                 <a
@@ -86,7 +87,7 @@ export default function Features() {
                 >
                   <div>
                     <div className="font-bold leading-snug tracking-tight mb-1">Generate the ZK proof</div>
-                    <div className="text-gray-600 text-sm">You can also disclose optional informations and use the proof to mint an SBT</div>
+                    <div className="text-gray-600 text-sm">You can also disclose optional informations and use the proof</div>
                   </div>
                   <div className='flex flex-grow'></div>
 
@@ -116,8 +117,7 @@ export default function Features() {
                     unmount={false}
                   >
                     <div className="relative inline-flex flex-col">
-                      <Image className="md:max-w-none mx-auto rounded" src={FeaturesBg} width={500} height="462" alt="Features bg" />
-                      <Image className="md:max-w-none absolute w-full left-0 transform animate-float" src={FeaturesElement} width={500} height="44" alt="Element" style={{ top: '30%' }} />
+                      <Image className="md:max-w-none mx-auto rounded" src={SCAN_SCREEN} width={350} height="462" alt="Features bg" />
                     </div>
                   </Transition>
                   {/* Item 2 */}
@@ -135,8 +135,7 @@ export default function Features() {
                     unmount={false}
                   >
                     <div className="relative inline-flex flex-col">
-                      <Image className="md:max-w-none mx-auto rounded" src={FeaturesBg} width={500} height="462" alt="Features bg" />
-                      <Image className="md:max-w-none absolute w-full left-0 transform animate-float" src={FeaturesElement} width={500} height="44" alt="Element" style={{ top: '30%' }} />
+                      <Image className="md:max-w-none mx-auto rounded" src={APP_SCREEN} width={350} height="462" alt="Features bg" />
                     </div>
                   </Transition>
                   {/* Item 3 */}
@@ -154,8 +153,7 @@ export default function Features() {
                     unmount={false}
                   >
                     <div className="relative inline-flex flex-col">
-                      <Image className="md:max-w-none mx-auto rounded" src={FeaturesBg} width={500} height="462" alt="Features bg" />
-                      <Image className="md:max-w-none absolute w-full left-0 transform animate-float" src={FeaturesElement} width={500} height="44" alt="Element" style={{ top: '30%' }} />
+                      <Image className="md:max-w-none mx-auto rounded" src={PROVE_SCREEN} width={350} height="462" alt="Features bg" />
                     </div>
                   </Transition>
                 </div>

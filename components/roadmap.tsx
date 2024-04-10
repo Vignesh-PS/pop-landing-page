@@ -15,7 +15,7 @@ export default function Roadmap() {
                         </svg>
                         <div className="ml-6">
                             <h4 className="font-bold text-blue-500">Circuits</h4>
-                            <p className="mt-2 max-w-screen-sm text-sm text-gray-500">Aliquam tincidunt malesuada tortor vitae iaculis. In eu turpis iaculis, feugiat risus quis, aliquet urna. Quisque fringilla mollis risus, eu pulvinar dolor.</p>
+                            <p className="mt-2 max-w-screen-sm text-sm text-gray-500">Focus on writing and optimizing circuits necessary for generating Zero-Knowledge (ZK) proofs. This crucial step ensures the Proof of Passport app can efficiently verify the authenticity of passport data without disclosing sensitive information.</p>
                             <span className="mt-1 block text-sm font-semibold text-blue-500">February 2024</span>
                         </div>
                     </div>
@@ -23,8 +23,8 @@ export default function Roadmap() {
                         <div className="absolute -top-1 z-10 -ml-3.5 h-7 w-7 rounded-full text-blue-500 border-2 border-gray-800 bg-gray-900">
                         </div>
                         <div className="ml-6">
-                            <h4 className="font-bold text-blue-500">Release on apps stores</h4>
-                            <p className="mt-2 max-w-screen-sm text-sm text-gray-500">Aliquam tincidunt malesuada tortor vitae iaculis. In eu turpis iaculis, feugiat risus quis, aliquet urna. Quisque fringilla mollis risus, eu pulvinar dolor.</p>
+                            <h4 className="font-bold text-blue-500">Release on app stores</h4>
+                            <p className="mt-2 max-w-screen-sm text-sm text-gray-500">Launch the Proof of Passport application on various app stores, making it available for users worldwide. This release includes the initial set of features such as NFC passport scanning, ZK proof generation, and selective information disclosure.</p>
                             <span className="mt-1 block text-sm font-semibold text-blue-500">April 2024</span>
                         </div>
                     </div>
@@ -34,7 +34,7 @@ export default function Roadmap() {
                         </div>
                         <div className="ml-6">
                             <h4 className="font-bold text-blue-500">Support more countries</h4>
-                            <p className="mt-2 max-w-screen-sm text-sm text-gray-500">Aliquam tincidunt malesuada tortor vitae iaculis. In eu turpis iaculis, feugiat risus quis, aliquet urna. Quisque fringilla mollis risus, eu pulvinar dolor</p>
+                            <p className="mt-2 max-w-screen-sm text-sm text-gray-500">Expand the passport scanning and verification feature to include support for additional countries. This update aims to enhance global accessibility, ensuring users from more regions can utilize the app for secure identity verification.</p>
                             <span className="mt-1 block text-sm font-semibold text-blue-500">June 2024</span>
                         </div>
                     </div>
