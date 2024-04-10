@@ -1,5 +1,4 @@
 import VideoThumb from '@/public/images/hero-image.png'
-import ModalVideo from '@/components/modal-video'
 import APP_ICON2 from '@/public/images/appicon2.png'
 
 export default function Hero() {
