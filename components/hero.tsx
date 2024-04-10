@@ -34,13 +34,13 @@ export default function Hero() {
             <h1 className="text-4xl md:text-6xl font-extrabold leading-tighter tracking-tighter text-[#2d2ef4] mb-4" data-aos="zoom-y-out">Proof of Passport </h1>
             {/* <h1 className="text-3xl md:text-4xl font-extrabold leading-tighter tracking-tighter mb-4 text-[#2d2ef4]" data-aos="zoom-y-out"> <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#2d2ef4] to-white">Proof of Passport</span></h1> */}
             <div className="max-w-3xl mx-auto">
-              <p className=" md:text-3xl text-2xl text-gray-200 mb-4 font-bold " data-aos="zoom-y-out" data-aos-delay="150">Generate ZK Proofs using your passport, disclose only what you want to share.</p>
+              <p className=" md:text-3xl text-2xl text-gray-200 mb-4 font-bold " data-aos="zoom-y-out" data-aos-delay="150">Generate ZK proofs using your passport, disclose only what you want to share.</p>
               <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center" data-aos="zoom-y-out" data-aos-delay="300">
                 <div>
-                  <a className="btn text-white bg-[#2d2ef4] hover:bg-blue-700 w-full mb-4 sm:w-auto sm:mb-0 rounded-md" href="https://testflight.apple.com/join/WfZnZWfn">Try on the App Store</a>
+                  <a className="btn text-white bg-[#2d2ef4] hover:bg-blue-700 w-full mb-4 sm:w-auto sm:mb-0 rounded-md" href="https://testflight.apple.com/join/WfZnZWfn" target="_blank" rel="noopener noreferrer">Try on the App Store</a>
                 </div>
                 <div>
-                  <a className="btn text-white bg-gray-900 hover:bg-gray-800 w-full sm:w-auto sm:ml-4 rounded-md" href="#1">Learn more</a>
+                  <a className="btn text-white bg-gray-900 hover:bg-gray-800 w-full sm:w-auto sm:ml-4 rounded-md" href="https://github.com/zk-passport/proof-of-passport" target="_blank" rel="noopener noreferrer">Learn more</a>
                 </div>
               </div>
             </div>

@@ -30,7 +30,7 @@ export default function Testimonials() {
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
             <h2 className="h2 mb-4">Partnerships</h2>
-            <p className="text-xl text-gray-300" data-aos="zoom-y-out">This project is currently backed by PSE and Ethereum Foundation.</p>
+            <p className="text-xl text-gray-300" data-aos="zoom-y-out">This project is currently supported by PSE and the Ethereum Foundation.</p>
           </div>
 
           {/* Items */}

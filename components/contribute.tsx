@@ -12,8 +12,8 @@ export default function FeaturesBlocks() {
 
                     {/* Section header */}
                     <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20 ">
-                        <h2 className="h2 mb-4">Help us building Proof of Passport</h2>
-                        <p className="text-xl text-gray-300">Proof of Passport lets users scan the NFC chip in their government-issued passport and prove the correctness of the signature in a zk-SNARK.</p>
+                        <h2 className="h2 mb-4">Help us build Proof of Passport</h2>
+                        <p className="text-xl text-gray-300">Proof of Passport currently supports ~50% of the world's electronic passports.</p>
                     </div>
 
                     {/* Items */}
@@ -29,22 +29,20 @@ export default function FeaturesBlocks() {
                                 </div>
                                 <div className='flex flex-col px-2 '>
                                     <h4 className="text-xl text-gray-200 font-bold leading-snug tracking-tight mb-1">Passport generator</h4>
-                                    <h4 className="text-md text-gray-300 leading-snug tracking-tight mb-1">Improve our passport generator</h4>
+                                    <h4 className="text-md text-gray-300 leading-snug tracking-tight mb-1">Improve our mock passport generator</h4>
                                 </div>
-
                             </div>
 
                             <div className='flex flex-col items-center gap-x-3 w-full border-t border-b border-[#3e3e3e] p-3 max-h-fit bg-[#232323]'>
-
-                                <h4 className="text-md text-gray-200  leading-snug tracking-tight mb-1">Help us to enhance the passport generator, by adding support for more countries.</h4>
+                                <h4 className="text-md text-gray-200  leading-snug tracking-tight mb-1">Scan your passport, add mock data following your format and we'll add support for your country.</h4>
                             </div>
                             <div className='flex flex-row items-center gap-x-1.5 w-full p-2 md:p-3'>
-                                <div className='bg-[#11233e] text-[#0090ff] rounded-full px-2 py-0.5 text-xs font-bold md:text-sm  md:px-3'>JavaScript</div>
+                                <div className='bg-[#11233e] text-[#0090ff] rounded-full px-2 py-0.5 text-xs font-bold md:text-sm  md:px-3'>TypeScript</div>
                                 <div className='bg-[#10291e] text-[#30a46b] rounded-full px-2 py-0.5 text-xs font-bold md:text-sm  md:px-3'>Easy</div>
                                 <div className='bg-[#2d2200] text-[#f5d90a] rounded-full px-2 py-0.5 text-xs font-bold md:text-sm  md:px-3'>Bounties</div>
 
                                 <div className='flex-grow'></div>
-                                <a href="https://t.me/proofofpassport" target="_blank" rel="noopener noreferrer" className='flex flex-row items-center gap-x-1.5 bg-[#232323] rounded-lg p-2 border border-[#3e3e3e] hover:bg-gray-300 cursor-pointer place-self-end'>
+                                <a href="https://github.com/zk-passport/proof-of-passport/issues/38" target="_blank" rel="noopener noreferrer" className='flex flex-row items-center gap-x-1.5 bg-[#232323] rounded-lg p-2 border border-[#3e3e3e] hover:bg-gray-300 cursor-pointer place-self-end'>
                                     <div className='text-sm md:text-md '>Contribute</div>
                                     <ExternalLink className=' h-4  w-4 md:h-5 md:w-5' />
                                 </a>
@@ -62,19 +60,20 @@ export default function FeaturesBlocks() {
                                 </div>
                                 <div className='flex flex-col px-2 '>
                                     <h4 className="text-xl text-gray-200 font-bold leading-snug tracking-tight mb-1">ZK primitives</h4>
-                                    <h4 className="text-md text-gray-300 leading-snug tracking-tight mb-1">Add more sig and hash primitives</h4>
+                                    <h4 className="text-md text-gray-300 leading-snug tracking-tight mb-1">Implement signatures algorithms</h4>
                                 </div>
 
                             </div>
 
                             <div className='flex flex-col flex-grow items-center gap-x-3 w-full border-t border-b border-[#3e3e3e] p-3 max-h-fit bg-[#232323]'>
-                                <h4 className="text-md text-gray-200  leading-snug tracking-tight mb-1">Create more primitive hash and sig algorithms, and implement them into our circuits </h4>
+                                <h4 className="text-md text-gray-200  leading-snug tracking-tight mb-1">Implement signature algorithms and hash functions and add them to the Proof of Passport circuits.</h4>
                             </div>
                             <div className='flex flex-row items-center gap-x-1.5 w-full p-2 md:p-3 '>
-                                <div className=' bg-[#381b02] text-[#f7670a] px-2 py-0.5 text-xs rounded-full font-bold md:text-sm  md:px-3'>Circom</div>
-                                <div className='bg-[#2d2200] text-[#f5d90a] px-2 py-0.5 text-xs rounded-full font-bold md:text-sm  md:px-3'>Bounties</div>
+                                <div className=' bg-[#262649] text-[#BBB0F7] px-2 py-0.5 text-xs rounded-full font-bold md:text-sm md:px-3'>Circom</div>
+                                <div className='bg-[#2d2200] text-[#f7670a] px-2 py-0.5 text-xs rounded-full font-bold md:text-sm md:px-3'>Medium</div>
+                                <div className='bg-[#2d2200] text-[#f5d90a] px-2 py-0.5 text-xs rounded-full font-bold md:text-sm md:px-3'>Bounties</div>
                                 <div className='flex-grow'></div>
-                                <a href="https://t.me/proofofpassport" target="_blank" rel="noopener noreferrer" className='flex flex-row items-center gap-x-1.5 bg-[#232323] rounded-lg p-2 border border-[#3e3e3e] hover:bg-gray-300 cursor-pointer place-self-end'>
+                                <a href="https://github.com/zk-passport/proof-of-passport/issues/38" target="_blank" rel="noopener noreferrer" className='flex flex-row items-center gap-x-1.5 bg-[#232323] rounded-lg p-2 border border-[#3e3e3e] hover:bg-gray-300 cursor-pointer place-self-end'>
                                     <div className='text-sm md:text-md '>Contribute</div>
                                     <ExternalLink className=' h-4  w-4 md:h-5 md:w-5' />
                                 </a>

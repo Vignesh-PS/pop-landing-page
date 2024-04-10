@@ -13,7 +13,7 @@ export default function FeaturesBlocks() {
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20 ">
             <h2 className="h2 mb-4">Explore use cases</h2>
-            <p className="text-xl text-gray-300">Proof of Passport lets users scan the NFC chip in their government-issued passport and prove the correctness of the signature in a zk-SNARK.</p>
+            <p className="text-xl text-gray-300">Proof of humanity and authentication, easier than ever. Maintaining privacy from start to finish.</p>
           </div>
 
           {/* Items */}
@@ -24,8 +24,8 @@ export default function FeaturesBlocks() {
               <div className='bg-[#232323] rounded-lg p-2 border border-[#3e3e3e] mb-2'>
                 <Bot className=' h-8  w-8' />
               </div>
-              <h4 className="text-xl text-gray-200 font-bold leading-snug tracking-tight my-2">Sybill attack</h4>
-              <p className="text-gray-300 text-center">Proof of Passport can provide a source of unique identity</p>
+              <h4 className="text-xl text-gray-200 font-bold leading-snug tracking-tight my-2">Sybil resistance</h4>
+              <p className="text-gray-300 text-center">Check the uniqueness of your users for airdrops, voting and quadratic funding.</p>
             </div>
 
             {/* 2nd item */}
@@ -35,15 +35,15 @@ export default function FeaturesBlocks() {
                 <PenTool className=' h-8  w-8' />
               </div>
               <h4 className="text-xl text-gray-200 font-bold leading-snug tracking-tight mb-1">Selective disclosure</h4>
-              <p className="text-gray-300 text-center">Users can disclose their nationality or that they are older than 18 yo without revealing any other private information.</p>
+              <p className="text-gray-300 text-center">Enable users to verify their nationality or age, keeping all other details private.</p>
             </div>
 
             <div className="relative flex flex-col md:h-52 items-center p-4 bg-[#1c1c1c] border-[#3e3e3e] border rounded-2xl shadow-xl">
               <div className='bg-[#232323] rounded-lg p-2 border border-[#3e3e3e] my-2'>
                 <Flame className=' h-8  w-8' />
               </div>
-              <h4 className="text-xl text-gray-200 font-bold leading-snug tracking-tight mb-1">Mint SBT</h4>
-              <p className="text-gray-300 text-center">Users can mint Soulbound Token after generating their ZK Proof and interact with any dApps.</p>
+              <h4 className="text-xl text-gray-200 font-bold leading-snug tracking-tight mb-1">Wallet recovery</h4>
+              <p className="text-gray-300 text-center">Safeguard your assets with your passport as one of your recovery sources.</p>
             </div>
 
 

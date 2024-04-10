@@ -56,8 +56,8 @@ export default function Features() {
                   onClick={(e) => { e.preventDefault(); setTab(1); }}
                 >
                   <div>
-                    <div className="font-bold leading-snug tracking-tight mb-1">Scan you passport</div>
-                    <div className="text-gray-600 text-sm">Scan your passport using the camera and NFC chip of your phone</div>
+                    <div className="font-bold leading-snug tracking-tight mb-1">Scan your passport</div>
+                    <div className="text-gray-600 text-sm">Scan your passport using your camera and NFC reader of your phone</div>
                   </div>
                   <div className='flex flex-grow'></div>
                   <div className="flex justify-center items-center  bg-[#1c1c1c] rounded-lg border border-[#343434] p-2 shadow flex-shrink-0 ml-3">
@@ -71,8 +71,8 @@ export default function Features() {
                   onClick={(e) => { e.preventDefault(); setTab(2); }}
                 >
                   <div>
-                    <div className="font-bold leading-snug tracking-tight mb-1">Select the app</div>
-                    <div className="text-gray-600 text-sm">Select the app you want to use Proof of Passport with, you can also mint a SBT</div>
+                    <div className="font-bold leading-snug tracking-tight mb-1">Select an app</div>
+                    <div className="text-gray-600 text-sm">Select an app you want to use Proof of Passport with, or mint the Proof of Passport SBT</div>
                   </div>
                   <div className='flex flex-grow'></div>
 
