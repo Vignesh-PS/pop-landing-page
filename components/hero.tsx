@@ -37,7 +37,7 @@ export default function Hero() {
               <p className=" md:text-3xl text-2xl text-gray-200 mb-4 font-bold " data-aos="zoom-y-out" data-aos-delay="150">Generate ZK proofs using your passport, disclose only what you want to share.</p>
               <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center" data-aos="zoom-y-out" data-aos-delay="300">
                 <div>
-                  <a className="btn text-white bg-[#2d2ef4] hover:bg-blue-700 w-full mb-4 sm:w-auto sm:mb-0 rounded-md" href="https://testflight.apple.com/join/WfZnZWfn" target="_blank" rel="noopener noreferrer">Try on the App Store</a>
+                  <a className="btn text-white bg-[#2d2ef4] hover:bg-blue-700 w-full mb-4 sm:w-auto sm:mb-0 rounded-md" href="https://testflight.apple.com/join/WfZnZWfn" target="_blank" rel="noopener noreferrer">Try it on the App Store</a>
                 </div>
                 <div>
                   <a className="btn text-white bg-gray-900 hover:bg-gray-800 w-full sm:w-auto sm:ml-4 rounded-md" href="https://github.com/zk-passport/proof-of-passport" target="_blank" rel="noopener noreferrer">Learn more</a>
