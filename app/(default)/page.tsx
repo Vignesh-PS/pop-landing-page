@@ -20,7 +20,6 @@ export default function Home() {
       <Contribute />
       <Roadmap />
       <Testimonials />
-
     </>
   )
 }
