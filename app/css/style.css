@@ -6,6 +6,7 @@
 @import 'additional-styles/range-slider.css';
 @import 'additional-styles/toggle-switch.css';
 @import 'additional-styles/theme.css';
+@import 'additional-styles/map-passport.css';
 
 @import 'tailwindcss/utilities';
 
@@ -15,4 +16,3 @@
         direction: rtl;
     }
 }
-

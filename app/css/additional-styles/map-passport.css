@@ -1,0 +1,37 @@
+ .globalMap path {
+     cursor: pointer;
+ }
+
+ .globalMap .main {
+     padding: 20px;
+     background: #f1f1f1;
+ }
+
+ .globalMap .homeTitle {
+     color: #000;
+     font-weight: bold;
+     font-size: 30px;
+ }
+
+ .globalMap .homeDescription {
+     font-size: 14px;
+     margin-top: 12px;
+     color: #28a745;
+ }
+
+ .globalMap .mapSection {
+     width: 100%;
+ }
+
+ .globalMap .mapRow {
+     display: flex;
+     margin-top: -3rem;
+ }
+
+ .globalMap header{
+    display: none;
+ }
+
+ .globalMap footer{
+    background: #dedede;
+ }
