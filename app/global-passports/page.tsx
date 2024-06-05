@@ -27,7 +27,7 @@ export default function GlobalMap() {
             don't support
           </div>
           <div className="legend-info-item flex items-center">
-            <p className="w-8 h-4 bg-[#b0bfa7] me-2"></p> Not issueing
+            <p className="w-8 h-4 bg-[#b0bfa7] me-2"></p> Not issuing
             electronic passports
           </div>
         </div>
