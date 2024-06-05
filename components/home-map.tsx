@@ -19,10 +19,10 @@ export default function MapChart({}) {
     ISSUE_WITH_SUPPORT = 1002,
   }
   const encryptionNames = {
-    sha1WithRSAEncryption: 'Sha1 RSA Encryption',
-    sha256WithRSAEncryption: 'Sha256 RSA Encryption',
-    sha512WithRSAEncryption: 'Sha512 RSA Encryption',
-    'rsassaPss        ': 'RSASSA PSS Encryption',
+    sha1WithRSAEncryption: 'Sha1 RSA',
+    sha256WithRSAEncryption: 'Sha256 RSA',
+    sha512WithRSAEncryption: 'Sha512 RSA',
+    'rsassaPss        ': 'RSASSA PSS',
     'ecdsa-with-SHA1': 'ECDSA with SHA-1',
     'ecdsa-with-SHA256': 'ECDSA with SHA-256',
     'ecdsa-with-SHA384': 'ECDSA with SHA-384',
@@ -82,7 +82,8 @@ export default function MapChart({}) {
     const validatedRecord = {};
     const eliminatingIndexes: number[] = [];
     for (let i = 0; i < signedInfo.length; i++) {
-      const validateKey = signedInfo[i].C + signedInfo[i].ENCRYPTION_CODE;
+      const validateKey =
+        signedInfo[i].C.toLowerCase() + signedInfo[i].ENCRYPTION_CODE;
       if (validatedRecord[validateKey] === undefined) {
         validatedRecord[validateKey] = i;
         continue;
@@ -186,32 +187,39 @@ export default function MapChart({}) {
     };
   }, []);
 
-  const handlePassportSupportFlag = (countryName: string) => {
-    const countryObj = allIssuesCountry[countryName];
-
-    if(!countryObj){
-      return '#b0bfa7';
-    }
-
-    if(countryObj?.defaultColor){
-      return countryObj?.defaultColor;
-    }
-
-    return '#b0bfa7';
-  }
-  
   const highLightInfo = (countryDscs: any = []) => {
     if (countryDscs?.length > 0) {
       return (
-        <div>
-          <h3>
+        <div className="bg-gray">
+          <h3 className="flex items-center">
             <b>{selectedCountryName || ''}</b>
+            <svg
+              className="ms-2 w-6 h-6 text-white"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
           </h3>{' '}
           <div className="issued-dscs">
             {countryDscs.map((dsc) => (
               <p key={dsc.ENCRYPTION_CODE}>
-                <span>{dsc.COUNT}</span> certificates signed with{' '}
-                <span>{dsc.ENCRYPTION}</span>
+                <span>
+                  {new Intl.NumberFormat().format(
+                    dsc.COUNT ? dsc.COUNT * 100000 : dsc.COUNT
+                  )}
+                </span>{' '}
+                passports emitted with <span>{dsc.ENCRYPTION}</span>
               </p>
             ))}
           </div>
@@ -220,8 +228,24 @@ export default function MapChart({}) {
     }
     return (
       <div>
-        <h3>
+        <h3 className="flex items-center">
           <b>{selectedCountryName || ''}</b>
+          <svg
+            className="ms-2 w-6 h-6 text-white"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              d="m6 6 12 12m3-6a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+            />
+          </svg>{' '}
         </h3>
       </div>
     );
@@ -237,7 +261,7 @@ export default function MapChart({}) {
         Tooltip content
         <div className="tooltip-arrow" data-popper-arrow></div>
       </div>
-      <ComposableMap width={960} height={580}>
+      <ComposableMap width={980} height={560}>
         <Graticule stroke="#999" strokeWidth={0.2} />
         <Sphere
           stroke="#fff"
@@ -269,18 +293,22 @@ export default function MapChart({}) {
                   onMouseEnter={() => {
                     handleToolTip(`${geo.properties.name}`);
                   }}
-                  onMouseLeave={() => {
-                    // handleToolTip('');
-                  }}
                   style={{
                     default: {
-                      fill: handlePassportSupportFlag(`${geo.properties.name}`)
+                      fill: allIssuesCountry[`${geo.properties.name}`]
+                        ? allIssuesCountry[`${geo.properties.name}`]
+                            .defaultColor
+                        : '#b0bfa7',
                     },
                     hover: {
-                      fill: '#4d7332',
+                      fill: allIssuesCountry[`${geo.properties.name}`]
+                        ? '#4d7332'
+                        : '#b0bfa7',
                     },
                     pressed: {
-                      fill: '#506f3a',
+                      fill: allIssuesCountry[`${geo.properties.name}`]
+                        ? '#507f3a'
+                        : '#b0bfa7',
                     },
                   }}
                 />

@@ -1,5 +1,6 @@
  .globalMap path {
      cursor: pointer;
+     outline: 0;
  }
 
  .globalMap .main {
@@ -10,7 +11,9 @@
  .globalMap .homeTitle {
      color: #000;
      font-weight: bold;
-     font-size: 30px;
+     font-size: 22px;
+     text-align: center;
+     margin-top: -3rem;
  }
 
  .globalMap .homeDescription {
@@ -20,18 +23,38 @@
  }
 
  .globalMap .mapSection {
-     width: 100%;
+     width: 90%;
+     margin-right: auto;
  }
 
  .globalMap .mapRow {
      display: flex;
-     margin-top: -3rem;
+     margin-top: -3.5rem;
  }
 
- .globalMap header{
-    display: none;
+ .globalMap header {
+     display: none;
  }
 
- .globalMap footer{
-    background: #dedede;
+ .globalMap footer {
+     background: #dedede;
+ }
+
+ .globalMap footer .py-4 {
+     padding: 0.5rem 0;
+ }
+
+ .globalMap .legend-info .legend-info-item {
+     font-size: 14px;
+ }
+
+ @media screen and (max-width: 1024px) {
+     .globalMap .homeTitle {
+         margin-top: 0;
+         font-size: 16px;
+     }
+
+     .globalMap .mapRow {
+         margin-top: 0;
+     }
  }
