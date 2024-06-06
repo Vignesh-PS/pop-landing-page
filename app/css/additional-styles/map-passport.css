@@ -11,9 +11,10 @@
  .globalMap .homeTitle {
      color: #000;
      font-weight: bold;
-     font-size: 22px;
+     font-size: 20px;
      text-align: center;
-     margin-top: -3rem;
+     max-width: 250px;
+     text-align: left;
  }
 
  .globalMap .homeDescription {
@@ -50,8 +51,11 @@
 
  @media screen and (max-width: 1024px) {
      .globalMap .homeTitle {
-         margin-top: 0;
-         font-size: 16px;
+         font-size: 14px;
+     }
+
+     .globalMap .legend-info .legend-info-item {
+         font-size: 12px;
      }
 
      .globalMap .mapRow {
