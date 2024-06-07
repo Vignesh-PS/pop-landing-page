@@ -9,6 +9,7 @@ import {
   Graticule,
   Sphere,
 } from 'react-simple-maps';
+import { CheckIcon, StopIcon } from './ui/svg-icons';
 
 const geoUrl = 'data/countries-110m.json';
 
@@ -19,9 +20,9 @@ export default function MapChart({}) {
     ISSUE_WITH_SUPPORT = 1002,
   }
   const encryptionNames = {
-    sha1WithRSAEncryption: 'Sha1 RSA',
-    sha256WithRSAEncryption: 'Sha256 RSA',
-    sha512WithRSAEncryption: 'Sha512 RSA',
+    'sha1WithRSAEncryption': 'Sha1 RSA',
+    'sha256WithRSAEncryption': 'Sha256 RSA',
+    'sha512WithRSAEncryption': 'Sha512 RSA',
     'rsassaPss        ': 'RSASSA PSS',
     'ecdsa-with-SHA1': 'ECDSA with SHA-1',
     'ecdsa-with-SHA256': 'ECDSA with SHA-256',
@@ -62,12 +63,14 @@ export default function MapChart({}) {
     const signedInfo: any = [];
 
     for (const inputData of Object.entries(input)) {
-      const encryptionData = input[inputData[0]];
+      const encCode = inputData[0]
+      const encryptionData = input[encCode];
       for (const [dn, count] of Object.entries(encryptionData)) {
         const parsedDN = parseDistinguishedName(dn);
         parsedDN['COUNT'] = count;
-        parsedDN['ENCRYPTION'] = encryptionNames[inputData[0]] || inputData[0];
-        parsedDN['ENCRYPTION_CODE'] = inputData[0];
+        parsedDN['ENCRYPTION'] = encryptionNames[encCode] || encCode;
+        parsedDN['ENCRYPTION_CODE'] = encCode;
+        parsedDN['SUPPORTED'] = encCode === 'sha1WithRSAEncryption' || encCode === 'sha256WithRSAEncryption';
         parsedDN['COUNTRY_NAME'] =
           countryNames[parsedDN['C'].toUpperCase()] || parsedDN['C'];
         signedInfo.push(parsedDN);
@@ -120,46 +123,50 @@ export default function MapChart({}) {
 
   const fetchJsonInfo = async () => {
     try {
+      // Intermediate certificates data (DSCs) issued by each country
       const jsonResData = await fetch(
         'https://raw.githubusercontent.com/zk-passport/proof-of-passport/main/registry/outputs/signature_algorithms.json'
       );
 
       const jsonData = await jsonResData.json();
-
       const countryNames = await import('./../public/data/all-countries.json');
-
+      
       if (!jsonData) {
         return;
-      }
+        }
+        
+        const allCountriesData = formatJsonData({ ...jsonData }, countryNames);
+        setAllCountriesData(allCountriesData);
 
-      const allCountriesData = formatJsonData({ ...jsonData }, countryNames);
-      setAllCountriesData(allCountriesData);
-
-      setIssuesSupportsVisuals(allCountriesData);
+        // e-passport supported countries
+        let ePassSupportCountries: any = await import('./../public/data/supported-countries.json');
+        console.log('ePassSupportCountries :>> ', ePassSupportCountries);
+        if(ePassSupportCountries?.default?.length) {
+          ePassSupportCountries = ePassSupportCountries.default;
+        }
+        
+        setIssuesSupportsVisuals(allCountriesData, ePassSupportCountries, countryNames);
     } catch (err) {
       console.log('err :>> ', err);
     }
   };
 
-  const setIssuesSupportsVisuals = (countryCertsData) => {
-    if (!countryCertsData) {
+  const setIssuesSupportsVisuals = (countryCertsData, ePassCountries, countryNames) => {
+    if (!countryCertsData || !ePassCountries) {
       return;
     }
     const countryRes = {};
-    for (const country of Object.entries(countryCertsData)) {
-      const countryName = country[0];
+    for (const country of ePassCountries) {
+      const countryName = countryNames[country];
       const supportedAlgs = countryCertsData[countryName];
 
       countryRes[countryName] = {
         name: countryName,
-        issueType: issuePassTypes.DO_NOT_ISSUE,
-        defaultColor: '#b0bfa7',
+        issueType: issuePassTypes.ISSUE_WITHOUT_SUPPORT,
+        defaultColor: '#70ac48',
       };
-
+      
       if (supportedAlgs?.length) {
-        countryRes[countryName].issueType =
-          issuePassTypes.ISSUE_WITHOUT_SUPPORT;
-        countryRes[countryName].defaultColor = '#70ac48';
         for (const alg of supportedAlgs) {
           if (
             alg?.ENCRYPTION_CODE === 'sha1WithRSAEncryption' ||
@@ -193,59 +200,34 @@ export default function MapChart({}) {
         <div className="bg-gray">
           <h3 className="flex items-center">
             <b>{selectedCountryName || ''}</b>
-            <svg
-              className="ms-2 w-6 h-6 text-white"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-              />
-            </svg>
           </h3>{' '}
           <div className="issued-dscs">
-            {countryDscs.map((dsc) => (
-              <p key={dsc.ENCRYPTION_CODE}>
-                <span>
-                  {new Intl.NumberFormat().format(
-                    dsc.COUNT ? dsc.COUNT * 100000 : dsc.COUNT
-                  )}
-                </span>{' '}
-                passports emitted with <span>{dsc.ENCRYPTION}</span>
-              </p>
-            ))}
+            {countryDscs.map((dsc) => {
+              return (
+                <p key={dsc.ENCRYPTION_CODE} className='flex items-center text-nowrap'>
+                  <span className='me-1'>
+                    {new Intl.NumberFormat().format(
+                      dsc.COUNT ? dsc.COUNT * 100000 : dsc.COUNT
+                    )}
+                  </span>{' '}
+                  passports emitted with <span className='ms-1'>{dsc.ENCRYPTION}</span>{' '}
+                  <span>
+                    {' '}
+                   {dsc.SUPPORTED ? (<CheckIcon />): (<StopIcon />)}{' '}
+                  </span>
+                </p>
+              );
+            })}
           </div>
         </div>
       );
     }
+
     return (
       <div>
         <h3 className="flex items-center">
           <b>{selectedCountryName || ''}</b>
-          <svg
-            className="ms-2 w-6 h-6 text-white"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeWidth="2"
-              d="m6 6 12 12m3-6a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-            />
-          </svg>{' '}
+          <StopIcon />{' '}
         </h3>
       </div>
     );

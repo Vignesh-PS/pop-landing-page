@@ -1,3 +1,7 @@
+body.globalMap{
+    background: #f1f1f1;
+}
+
  .globalMap path {
      cursor: pointer;
      outline: 0;
@@ -9,7 +13,7 @@
  }
 
  .globalMap .homeTitle {
-     color: #000;
+    color: #000;
      font-weight: bold;
      font-size: 20px;
      text-align: center;
@@ -39,6 +43,7 @@
 
  .globalMap footer {
      background: #dedede;
+     margin-top: auto;
  }
 
  .globalMap footer .py-4 {
@@ -50,6 +55,7 @@
  }
 
  @media screen and (max-width: 1024px) {
+    
      .globalMap .homeTitle {
          font-size: 14px;
      }
@@ -58,6 +64,9 @@
          font-size: 12px;
      }
 
+     .globalMap .mapSection {
+        width: 100%;
+     }
      .globalMap .mapRow {
          margin-top: 0;
      }

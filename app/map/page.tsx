@@ -16,7 +16,7 @@ export default function GlobalMap() {
             <MapChart />
           </div>
         </div>
-        <div className="legend-info text-black relative bottom-4 lg:bottom-7 right-3 lg:absolute">
+        <div className="legend-info text-black relative bottom-2 lg:bottom-7 right-3 lg:absolute">
           <h2 className={`homeTitle`}>Proof of Passport country coverage</h2>
           <div className="legend-info-item flex items-center">
             <p className="w-8 h-4 bg-[#548233] me-2"></p> Supported countries
