@@ -20,10 +20,10 @@ export default function MapChart({}) {
     ISSUE_WITH_SUPPORT = 1002,
   }
   const encryptionNames = {
-    'sha1WithRSAEncryption': 'Sha1 RSA',
-    'sha256WithRSAEncryption': 'Sha256 RSA',
-    'sha512WithRSAEncryption': 'Sha512 RSA',
-    'rsassaPss        ': 'RSASSA PSS',
+    'sha1WithRSAEncryption': 'RSA with SHA-1',
+    'sha256WithRSAEncryption': 'RSA with SHA-256',
+    'sha512WithRSAEncryption': 'RSA with SHA-512',
+    'rsassaPss        ': 'RSA-PSS with SHA-256',
     'ecdsa-with-SHA1': 'ECDSA with SHA-1',
     'ecdsa-with-SHA256': 'ECDSA with SHA-256',
     'ecdsa-with-SHA384': 'ECDSA with SHA-384',
@@ -70,7 +70,7 @@ export default function MapChart({}) {
         parsedDN['COUNT'] = count;
         parsedDN['ENCRYPTION'] = encryptionNames[encCode] || encCode;
         parsedDN['ENCRYPTION_CODE'] = encCode;
-        parsedDN['SUPPORTED'] = encCode === 'sha1WithRSAEncryption' || encCode === 'sha256WithRSAEncryption';
+        parsedDN['SUPPORTED'] = encCode === 'sha256WithRSAEncryption';
         parsedDN['COUNTRY_NAME'] =
           countryNames[parsedDN['C'].toUpperCase()] || parsedDN['C'];
         signedInfo.push(parsedDN);
@@ -133,19 +133,18 @@ export default function MapChart({}) {
       
       if (!jsonData) {
         return;
-        }
-        
-        const allCountriesData = formatJsonData({ ...jsonData }, countryNames);
-        setAllCountriesData(allCountriesData);
+      }
+      
+      const allCountriesData = formatJsonData({ ...jsonData }, countryNames);
+      setAllCountriesData(allCountriesData);
 
-        // e-passport supported countries
-        let ePassSupportCountries: any = await import('./../public/data/supported-countries.json');
-        console.log('ePassSupportCountries :>> ', ePassSupportCountries);
-        if(ePassSupportCountries?.default?.length) {
-          ePassSupportCountries = ePassSupportCountries.default;
-        }
-        
-        setIssuesSupportsVisuals(allCountriesData, ePassSupportCountries, countryNames);
+      // e-passport supported countries
+      let ePassSupportCountries: any = await import('./../public/data/supported-countries.json');
+      if(ePassSupportCountries?.default?.length) {
+        ePassSupportCountries = ePassSupportCountries.default;
+      }
+      
+      setIssuesSupportsVisuals(allCountriesData, ePassSupportCountries, countryNames);
     } catch (err) {
       console.log('err :>> ', err);
     }
@@ -169,7 +168,7 @@ export default function MapChart({}) {
       if (supportedAlgs?.length) {
         for (const alg of supportedAlgs) {
           if (
-            alg?.ENCRYPTION_CODE === 'sha1WithRSAEncryption' ||
+            // alg?.ENCRYPTION_CODE === 'sha1WithRSAEncryption' ||
             alg?.ENCRYPTION_CODE === 'sha256WithRSAEncryption'
           ) {
             countryRes[countryName].issueType =
@@ -207,13 +206,12 @@ export default function MapChart({}) {
                 <p key={dsc.ENCRYPTION_CODE} className='flex items-center text-nowrap'>
                   <span className='me-1'>
                     {new Intl.NumberFormat().format(
-                      dsc.COUNT ? dsc.COUNT * 100000 : dsc.COUNT
+                      dsc.COUNT ? dsc.COUNT * 100_000 : dsc.COUNT
                     )}
-                  </span>{' '}
-                  passports emitted with <span className='ms-1'>{dsc.ENCRYPTION}</span>{' '}
+                  </span>
+                  passports issued with <span className='ms-1'>{dsc.ENCRYPTION}</span>
                   <span>
-                    {' '}
-                   {dsc.SUPPORTED ? (<CheckIcon />): (<StopIcon />)}{' '}
+                    &nbsp;{dsc.SUPPORTED ? "✅" : "🚧"}
                   </span>
                 </p>
               );
@@ -227,7 +225,12 @@ export default function MapChart({}) {
       <div>
         <h3 className="flex items-center">
           <b>{selectedCountryName || ''}</b>
-          <StopIcon />{' '}
+          &nbsp;
+          {
+            allIssuesCountry[`${selectedCountryName}`]
+              ? "🚧"
+              : null
+          }
         </h3>
       </div>
     );

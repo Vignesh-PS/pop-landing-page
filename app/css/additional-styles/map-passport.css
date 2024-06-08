@@ -71,3 +71,7 @@ body.globalMap{
          margin-top: 0;
      }
  }
+
+.country-tooltip {
+    max-width: none !important; /* Override the default max-width */
+}
