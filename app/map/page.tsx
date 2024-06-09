@@ -3,8 +3,8 @@ import Footer from '@/components/ui/footer';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Worldwide Passports',
-  description: 'World map of electronic passports',
+  title: 'Coverage map',
+  description: 'World map of proof of passport coverage',
 };
 
 export default function GlobalMap() {

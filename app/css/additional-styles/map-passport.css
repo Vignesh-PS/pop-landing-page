@@ -72,5 +72,9 @@ body.globalMap{
      }
      .globalMap .highlightInfo{
         font-size: 10px;
-     }
+    
  }
+
+.country-tooltip {
+    max-width: none !important; /* Override the default max-width */
+}
