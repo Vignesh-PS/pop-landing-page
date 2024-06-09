@@ -260,7 +260,7 @@ export default function MapChart({}) {
                 leaveTouchDelay={6000}
                 classes={{ tooltip: 'country-tooltip' }}
                 title={highLightInfo(selectedCountryInfo)}
-                placement={size.width < 767 ? 'bottom': 'right'}
+                placement={size.width && size.width < 767 ? 'bottom': 'right'}
                 
                 arrow
                 key={geo.rsmKey}
@@ -305,9 +305,12 @@ export default function MapChart({}) {
 // Hook for getting window size
 function useWindowSize() {
   // Initialize state with undefined width/height so server and client renders match
-  const [windowSize, setWindowSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
+  const [windowSize, setWindowSize] = useState<{
+    width: number | undefined;
+    height: number | undefined;
+  }>({
+    width: undefined,
+    height: undefined,
   });
 
   useEffect(() => {
@@ -319,14 +322,17 @@ function useWindowSize() {
       });
     }
     
-    // Add event listener
-    window.addEventListener("resize", handleResize);
+    // Only execute on the client-side
+    if (typeof window !== 'undefined') {
+      // Add event listener
+      window.addEventListener("resize", handleResize);
      
-    // Call handler right away so state gets updated with initial window size
-    handleResize();
+      // Call handler right away so state gets updated with initial window size
+      handleResize();
     
-    // Remove event listener on cleanup
-    return () => window.removeEventListener("resize", handleResize);
+      // Remove event listener on cleanup
+      return () => window.removeEventListener("resize", handleResize);
+    }
   }, []); // Empty array ensures that effect is only run on mount
   return windowSize;
 }
