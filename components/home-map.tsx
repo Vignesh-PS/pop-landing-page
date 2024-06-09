@@ -33,6 +33,7 @@ export default function MapChart({}) {
   const [allCountriesData, setAllCountriesData] = useState({});
   const [selectedCountryName, setSelectedCountryName] = useState('');
   const [allIssuesCountry, setAllIssuesCountry] = useState({});
+  const size = useWindowSize();
 
   const handleToolTip = (countryName: string) => {
     setSelectedCountryName(countryName);
@@ -197,7 +198,7 @@ export default function MapChart({}) {
   const highLightInfo = (countryDscs: any = []) => {
     if (countryDscs?.length > 0) {
       return (
-        <div className="bg-gray">
+        <div className="bg-gray highlightInfo">
           <h3 className="flex items-center">
             <b>{selectedCountryName || ''}</b>
           </h3>{' '}
@@ -235,14 +236,6 @@ export default function MapChart({}) {
 
   return (
     <div data-tip="" className="globalMap">
-      <div
-        id="tooltip-default"
-        role="tooltip"
-        className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
-      >
-        Tooltip content
-        <div className="tooltip-arrow" data-popper-arrow></div>
-      </div>
       <ComposableMap width={980} height={560}>
         <Graticule stroke="#999" strokeWidth={0.2} />
         <Sphere
@@ -260,9 +253,12 @@ export default function MapChart({}) {
           {({ geographies }) =>
             geographies.map((geo) => (
               <Tooltip
+                enterTouchDelay={0}
+                leaveTouchDelay={6000}
                 classes={{ tooltip: 'country-tooltip' }}
                 title={highLightInfo(selectedCountryInfo)}
-                placement="right"
+                placement={size.width < 767 ? 'bottom': 'right'}
+                
                 arrow
                 key={geo.rsmKey}
                 TransitionComponent={Zoom}
@@ -301,4 +297,33 @@ export default function MapChart({}) {
       </ComposableMap>
     </div>
   );
+}
+
+// Hook for getting window size
+function useWindowSize() {
+  // Initialize state with undefined width/height so server and client renders match
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  useEffect(() => {
+    function handleResize() {
+      // Set window width/height to state
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+    
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+     
+    // Call handler right away so state gets updated with initial window size
+    handleResize();
+    
+    // Remove event listener on cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, []); // Empty array ensures that effect is only run on mount
+  return windowSize;
 }
