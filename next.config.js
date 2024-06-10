@@ -4,27 +4,27 @@ const nextConfig = {
       return {
         beforeFiles: [
           {
-            source: '/:path*',
+            source: '/map/:path*',
             has: [
               {
                 type: 'host',
                 value: 'map.proofofpassport.com',
               },
             ],
-            destination: '/map/:path*',
+            destination: '/:path*',
           },
           {
-            source: '/map/_next/:path*',
+            source: '/_next/static/:path*',
             has: [
               {
                 type: 'host',
                 value: 'map.proofofpassport.com',
               },
             ],
-            destination: '/_next/:path*',
+            destination: '/_next/static/:path*',
           },
           {
-            source: '/map/static/:path*',
+            source: '/static/:path*',
             has: [
               {
                 type: 'host',
