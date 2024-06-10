@@ -13,26 +13,6 @@ const nextConfig = {
             ],
             destination: '/map/:path*',
           },
-        //   {
-        //     source: '/map/_next/:path*',
-        //     has: [
-        //       {
-        //         type: 'host',
-        //         value: 'map.proofofpassport.com',
-        //       },
-        //     ],
-        //     destination: '/_next/:path*',
-        //   },
-        //   {
-        //     source: '/map/static/:path*',
-        //     has: [
-        //       {
-        //         type: 'host',
-        //         value: 'map.proofofpassport.com',
-        //       },
-        //     ],
-        //     destination: '/static/:path*',
-        //   },
         ],
         afterFiles: [
             {
