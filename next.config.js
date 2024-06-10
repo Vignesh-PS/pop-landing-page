@@ -34,6 +34,24 @@ const nextConfig = {
             destination: '/static/:path*',
           },
         ],
+        afterFiles: [
+            {
+                source: '/map/_next/:path*',
+                destination: '/_next/:path*',
+            },
+            {
+                source: '/map/static/:path*',
+                destination: '/static/:path*',
+            },
+            {
+                source: '/map/data/:path*',
+                destination: '/data/:path*',
+            },
+            {
+                source: '/map/favicon.ico',
+                destination: '/favicon.ico',
+            },
+        ],
       };
     },
     async headers() {
