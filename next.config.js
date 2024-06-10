@@ -13,26 +13,26 @@ const nextConfig = {
             ],
             destination: '/map/:path*',
           },
-          {
-            source: '/map/_next/:path*',
-            has: [
-              {
-                type: 'host',
-                value: 'map.proofofpassport.com',
-              },
-            ],
-            destination: '/_next/:path*',
-          },
-          {
-            source: '/map/static/:path*',
-            has: [
-              {
-                type: 'host',
-                value: 'map.proofofpassport.com',
-              },
-            ],
-            destination: '/static/:path*',
-          },
+        //   {
+        //     source: '/map/_next/:path*',
+        //     has: [
+        //       {
+        //         type: 'host',
+        //         value: 'map.proofofpassport.com',
+        //       },
+        //     ],
+        //     destination: '/_next/:path*',
+        //   },
+        //   {
+        //     source: '/map/static/:path*',
+        //     has: [
+        //       {
+        //         type: 'host',
+        //         value: 'map.proofofpassport.com',
+        //       },
+        //     ],
+        //     destination: '/static/:path*',
+        //   },
         ],
         afterFiles: [
             {
@@ -54,20 +54,6 @@ const nextConfig = {
         ],
       };
     },
-    
-    async headers() {
-        return [
-          {
-            source: '/map/:path*',
-            headers: [
-              {
-                key: 'Access-Control-Allow-Origin',
-                value: 'https://map.proofofpassport.com',
-              },
-            ],
-          },
-        ];
-      },
   };
   
   module.exports = nextConfig;
