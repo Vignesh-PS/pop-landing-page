@@ -9,7 +9,6 @@ import {
   Graticule,
   Sphere,
 } from 'react-simple-maps';
-import { CheckIcon, StopIcon } from './ui/svg-icons';
 
 const geoUrl = 'data/countries-110m.json';
 
@@ -64,7 +63,7 @@ export default function MapChart({}) {
     const signedInfo: any = [];
 
     for (const inputData of Object.entries(input)) {
-      const encCode = inputData[0]
+      const encCode = inputData[0];
       const encryptionData = input[encCode];
       for (const [dn, count] of Object.entries(encryptionData)) {
         const parsedDN = parseDistinguishedName(dn);
@@ -131,27 +130,37 @@ export default function MapChart({}) {
 
       const jsonData = await jsonResData.json();
       const countryNames = await import('./../public/data/all-countries.json');
-      
+
       if (!jsonData) {
         return;
       }
-      
+
       const allCountriesData = formatJsonData({ ...jsonData }, countryNames);
       setAllCountriesData(allCountriesData);
 
       // e-passport supported countries
-      let ePassSupportCountries: any = await import('./../public/data/supported-countries.json');
-      if(ePassSupportCountries?.default?.length) {
+      let ePassSupportCountries: any = await import(
+        './../public/data/supported-countries.json'
+      );
+      if (ePassSupportCountries?.default?.length) {
         ePassSupportCountries = ePassSupportCountries.default;
       }
-      
-      setIssuesSupportsVisuals(allCountriesData, ePassSupportCountries, countryNames);
+
+      setIssuesSupportsVisuals(
+        allCountriesData,
+        ePassSupportCountries,
+        countryNames
+      );
     } catch (err) {
       console.log('err :>> ', err);
     }
   };
 
-  const setIssuesSupportsVisuals = (countryCertsData, ePassCountries, countryNames) => {
+  const setIssuesSupportsVisuals = (
+    countryCertsData,
+    ePassCountries,
+    countryNames
+  ) => {
     if (!countryCertsData || !ePassCountries) {
       return;
     }
@@ -165,7 +174,7 @@ export default function MapChart({}) {
         issueType: issuePassTypes.ISSUE_WITHOUT_SUPPORT,
         defaultColor: '#70ac48',
       };
-      
+
       if (supportedAlgs?.length) {
         for (const alg of supportedAlgs) {
           if (
@@ -204,16 +213,18 @@ export default function MapChart({}) {
           <div className="issued-dscs">
             {countryDscs.map((dsc) => {
               return (
-                <p key={dsc.ENCRYPTION_CODE} className='flex items-center text-nowrap'>
-                  <span className='me-1'>
+                <p
+                  key={dsc.ENCRYPTION_CODE}
+                  className="flex items-center text-nowrap"
+                >
+                  <span className="me-1">
                     {new Intl.NumberFormat().format(
                       dsc.COUNT ? dsc.COUNT * 100_000 : dsc.COUNT
                     )}
                   </span>
-                  passports issued with <span className='ms-1'>{dsc.ENCRYPTION}</span>
-                  <span>
-                    &nbsp;{dsc.SUPPORTED ? "✅" : "🚧"}
-                  </span>
+                  passports issued with{' '}
+                  <span className="ms-1">{dsc.ENCRYPTION}</span>
+                  <span>&nbsp;{dsc.SUPPORTED ? '✅' : '🚧'}</span>
                 </p>
               );
             })}
@@ -227,11 +238,7 @@ export default function MapChart({}) {
         <h3 className="flex items-center">
           <b>{selectedCountryName || ''}</b>
           &nbsp;
-          {
-            allIssuesCountry[`${selectedCountryName}`]
-              ? "🚧"
-              : null
-          }
+          {allIssuesCountry[`${selectedCountryName}`] ? '🚧' : null}
         </h3>
       </div>
     );
@@ -261,8 +268,8 @@ export default function MapChart({}) {
                 classes={{ tooltip: 'country-tooltip' }}
                 title={highLightInfo(selectedCountryInfo)}
                 placement={size.width && size.width < 767 ? 'bottom': 'right'}
-                
                 arrow
+                enterDelay={size?.width && size.width < 767 ? 100 : 0}
                 key={geo.rsmKey}
                 TransitionComponent={Zoom}
                 TransitionProps={{ timeout: 50 }}
