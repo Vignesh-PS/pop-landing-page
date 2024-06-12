@@ -269,7 +269,7 @@ export default function MapChart({}) {
                 title={highLightInfo(selectedCountryInfo)}
                 placement={size.width && size.width < 767 ? 'bottom': 'right'}
                 arrow
-                enterDelay={size?.width && size.width < 767 ? 100 : 0}
+                enterDelay={size?.width && size.width < 767 ? 200 : 0}
                 key={geo.rsmKey}
                 TransitionComponent={Zoom}
                 TransitionProps={{ timeout: 50 }}
