@@ -72,8 +72,29 @@ body.globalMap {
         margin-top: 0;
     }
 
-    .globalMap .highlightInfo {
+    .globalMap .highlightInfo p, .globalMap .workInProgress p {
         font-size: 10px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .globalMap .main {
+        height: calc(100vh - 86px);
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 0;
+    }
+    .globalMap .countryDetailsRow{
+        flex: auto;
+    }
+    .globalMap .legend-info{
+        padding-top: 10px;
+        margin-top: auto;
+    }
+}
+@media screen and (min-width: 640px) {
+    .globalMap #countryDetails{
+        border: 0;
     }
 }
 

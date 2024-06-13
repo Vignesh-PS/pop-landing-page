@@ -9,10 +9,11 @@ import {
   Graticule,
   Sphere,
 } from 'react-simple-maps';
+import { renderToStaticMarkup } from 'react-dom/server';
 
 const geoUrl = 'data/countries-110m.json';
 
-export default function MapChart({}) {
+export default function MapChart() {
   enum issuePassTypes {
     DO_NOT_ISSUE = 1000,
     ISSUE_WITHOUT_SUPPORT = 1001,
@@ -33,6 +34,7 @@ export default function MapChart({}) {
   const [selectedCountryName, setSelectedCountryName] = useState('');
   const [allIssuesCountry, setAllIssuesCountry] = useState({});
   const size = useWindowSize();
+  const [isMobileView, setIsMobileView] = useState(false);
 
   const handleToolTip = (countryName: string) => {
     setSelectedCountryName(countryName);
@@ -203,9 +205,15 @@ export default function MapChart({}) {
     };
   }, []);
 
+  useEffect(() => {
+    const isMobile = !!size.width && size.width < 767;
+    setIsMobileView(isMobile);
+  }, [size]);
+
   const highLightInfo = (countryDscs: any = []) => {
+    let info: React.JSX.Element;
     if (countryDscs?.length > 0) {
-      return (
+      info = (
         <div className="bg-gray highlightInfo">
           <h3 className="flex items-center">
             <b>{selectedCountryName || ''}</b>
@@ -231,22 +239,46 @@ export default function MapChart({}) {
           </div>
         </div>
       );
+    } else {
+      info = (
+        <div className="workInProgress">
+          <h3 className="flex items-center">
+            <b>{selectedCountryName || ''}</b>
+            &nbsp;
+            {allIssuesCountry[`${selectedCountryName}`] ? '🚧' : null}
+          </h3>
+          {allIssuesCountry[`${selectedCountryName}`] && isMobileView ? (
+            <>
+              <p>Work in progress</p>
+            </>
+          ) : (
+            isMobileView && (
+              <>
+                <p>Not issuing e-passport</p>
+              </>
+            )
+          )}
+        </div>
+      );
     }
 
-    return (
-      <div>
-        <h3 className="flex items-center">
-          <b>{selectedCountryName || ''}</b>
-          &nbsp;
-          {allIssuesCountry[`${selectedCountryName}`] ? '🚧' : null}
-        </h3>
-      </div>
-    );
+    if (size.width && size.width < 767 && selectedCountryName != '') {
+      const mobInfoEl = document.getElementById('countryDetails');
+      if (mobInfoEl?.innerHTML) {
+        mobInfoEl.innerHTML = renderToStaticMarkup(info);
+      }
+    }
+
+    return info;
   };
 
   return (
     <div data-tip="" className="globalMap">
-      <ComposableMap width={980} height={560}>
+      <ComposableMap
+        projectionConfig={{ center: isMobileView ? [10, 0] : [25, 10] }}
+        width={isMobileView ? 750 : 880}
+        height={500}
+      >
         <Graticule stroke="#999" strokeWidth={0.2} />
         <Sphere
           stroke="#fff"
@@ -267,9 +299,10 @@ export default function MapChart({}) {
                 leaveTouchDelay={6000}
                 classes={{ tooltip: 'country-tooltip' }}
                 title={highLightInfo(selectedCountryInfo)}
-                placement={size.width && size.width < 767 ? 'bottom': 'right'}
+                disableTouchListener={isMobileView}
+                disableHoverListener={isMobileView}
+                placement={'right'}
                 arrow
-                enterDelay={size?.width && size.width < 767 ? 200 : 0}
                 key={geo.rsmKey}
                 TransitionComponent={Zoom}
                 TransitionProps={{ timeout: 50 }}
@@ -277,9 +310,20 @@ export default function MapChart({}) {
                 <Geography
                   key={geo.rsmKey}
                   geography={geo}
-                  data-tooltip-target="tooltip-default"
+                  onClick={() => {
+                    if (!isMobileView) {
+                      return;
+                    }
+                    handleToolTip(`${geo.properties.name}`);
+                    if (isMobileView) {
+                      highLightInfo(selectedCountryInfo);
+                    }
+                  }}
                   onMouseEnter={() => {
                     handleToolTip(`${geo.properties.name}`);
+                    if (isMobileView) {
+                      highLightInfo(selectedCountryInfo);
+                    }
                   }}
                   style={{
                     default: {
@@ -328,17 +372,17 @@ function useWindowSize() {
         height: window.innerHeight,
       });
     }
-    
+
     // Only execute on the client-side
     if (typeof window !== 'undefined') {
       // Add event listener
-      window.addEventListener("resize", handleResize);
-     
+      window.addEventListener('resize', handleResize);
+
       // Call handler right away so state gets updated with initial window size
       handleResize();
-    
+
       // Remove event listener on cleanup
-      return () => window.removeEventListener("resize", handleResize);
+      return () => window.removeEventListener('resize', handleResize);
     }
   }, []); // Empty array ensures that effect is only run on mount
   return windowSize;
