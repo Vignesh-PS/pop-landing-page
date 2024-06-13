@@ -169,16 +169,15 @@ export default function MapChartCSCA({ }) {
             // alg?.ENCRYPTION_CODE === 'sha1WithRSAEncryption' ||
             alg?.ENCRYPTION_CODE === 'SHA256WITHRSA' ||
             alg?.ENCRYPTION_CODE === 'SHA384WITHRSA' ||
-            alg?.ENCRYPTION_CODE === 'SHA512WITHRSA' ||
-            alg?.ENCRYPTION_CODE === 'SHA384WITHECDSA' ||
             alg?.ENCRYPTION_CODE === 'SHA256WITHECDSA' ||
-            alg?.ENCRYPTION_CODE === 'SHA512WITHECDSA' ||
-            alg?.ENCRYPTION_CODE === 'SHA384WITHRSAANDMGF1' ||
-            alg?.ENCRYPTION_CODE === 'SHA512WITHRSAANDMGF1' ||
-            alg?.ENCRYPTION_CODE === 'ECDSA' ||
             alg?.ENCRYPTION_CODE === 'SHA256WITHRSAANDMGF1' ||
             alg?.ENCRYPTION_CODE === 'SHA384WITHECDSA' ||
-            alg?.ENCRYPTION_CODE === 'SHA512WITHECDSA'
+            alg?.ENCRYPTION_CODE === 'SHA1WITHRSA' ||
+            alg?.ENCRYPTION_CODE === 'ECDSA' ||
+            alg?.ENCRYPTION_CODE === 'SHA512WITHECDSA' ||
+            alg?.ENCRYPTION_CODE === 'SHA512WITHRSA' ||
+            alg?.ENCRYPTION_CODE === 'SHA512WITHRSAANDMGF1' ||
+            alg?.ENCRYPTION_CODE === 'SHA384WITHRSAANDMGF1'
           ) {
             countryRes[countryName].issueType =
               issuePassTypes.ISSUE_WITH_SUPPORT;
