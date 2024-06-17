@@ -9,11 +9,11 @@ import {
   Graticule,
   Sphere,
 } from 'react-simple-maps';
-import { CheckIcon, StopIcon } from './ui/svg-icons';
+import { renderToStaticMarkup } from 'react-dom/server';
 
 const geoUrl = 'data/countries-110m.json';
 
-export default function MapChart({}) {
+export default function MapChart() {
   enum issuePassTypes {
     DO_NOT_ISSUE = 1000,
     ISSUE_WITHOUT_SUPPORT = 1001,
@@ -33,6 +33,8 @@ export default function MapChart({}) {
   const [allCountriesData, setAllCountriesData] = useState({});
   const [selectedCountryName, setSelectedCountryName] = useState('');
   const [allIssuesCountry, setAllIssuesCountry] = useState({});
+  const size = useWindowSize();
+  const [isMobileView, setIsMobileView] = useState(false);
 
   const handleToolTip = (countryName: string) => {
     setSelectedCountryName(countryName);
@@ -63,7 +65,7 @@ export default function MapChart({}) {
     const signedInfo: any = [];
 
     for (const inputData of Object.entries(input)) {
-      const encCode = inputData[0]
+      const encCode = inputData[0];
       const encryptionData = input[encCode];
       for (const [dn, count] of Object.entries(encryptionData)) {
         const parsedDN = parseDistinguishedName(dn);
@@ -130,27 +132,37 @@ export default function MapChart({}) {
 
       const jsonData = await jsonResData.json();
       const countryNames = await import('./../public/data/all-countries.json');
-      
+
       if (!jsonData) {
         return;
       }
-      
+
       const allCountriesData = formatJsonData({ ...jsonData }, countryNames);
       setAllCountriesData(allCountriesData);
 
       // e-passport supported countries
-      let ePassSupportCountries: any = await import('./../public/data/supported-countries.json');
-      if(ePassSupportCountries?.default?.length) {
+      let ePassSupportCountries: any = await import(
+        './../public/data/supported-countries.json'
+      );
+      if (ePassSupportCountries?.default?.length) {
         ePassSupportCountries = ePassSupportCountries.default;
       }
-      
-      setIssuesSupportsVisuals(allCountriesData, ePassSupportCountries, countryNames);
+
+      setIssuesSupportsVisuals(
+        allCountriesData,
+        ePassSupportCountries,
+        countryNames
+      );
     } catch (err) {
       console.log('err :>> ', err);
     }
   };
 
-  const setIssuesSupportsVisuals = (countryCertsData, ePassCountries, countryNames) => {
+  const setIssuesSupportsVisuals = (
+    countryCertsData,
+    ePassCountries,
+    countryNames
+  ) => {
     if (!countryCertsData || !ePassCountries) {
       return;
     }
@@ -164,7 +176,7 @@ export default function MapChart({}) {
         issueType: issuePassTypes.ISSUE_WITHOUT_SUPPORT,
         defaultColor: '#70ac48',
       };
-      
+
       if (supportedAlgs?.length) {
         for (const alg of supportedAlgs) {
           if (
@@ -193,60 +205,80 @@ export default function MapChart({}) {
     };
   }, []);
 
+  useEffect(() => {
+    const isMobile = !!size.width && size.width < 767;
+    setIsMobileView(isMobile);
+  }, [size]);
+
   const highLightInfo = (countryDscs: any = []) => {
+    let info: React.JSX.Element;
     if (countryDscs?.length > 0) {
-      return (
-        <div className="bg-gray">
+      info = (
+        <div className="bg-gray highlightInfo">
           <h3 className="flex items-center">
             <b>{selectedCountryName || ''}</b>
           </h3>{' '}
           <div className="issued-dscs">
             {countryDscs.map((dsc) => {
               return (
-                <p key={dsc.ENCRYPTION_CODE} className='flex items-center text-nowrap'>
-                  <span className='me-1'>
+                <p
+                  key={dsc.ENCRYPTION_CODE}
+                  className="flex items-center text-nowrap"
+                >
+                  <span className="me-1">
                     {new Intl.NumberFormat().format(
                       dsc.COUNT ? dsc.COUNT * 100_000 : dsc.COUNT
                     )}
                   </span>
-                  passports issued with <span className='ms-1'>{dsc.ENCRYPTION}</span>
-                  <span>
-                    &nbsp;{dsc.SUPPORTED ? "✅" : "🚧"}
-                  </span>
+                  passports issued with{' '}
+                  <span className="ms-1">{dsc.ENCRYPTION}</span>
+                  <span>&nbsp;{dsc.SUPPORTED ? '✅' : '🚧'}</span>
                 </p>
               );
             })}
           </div>
         </div>
       );
+    } else {
+      info = (
+        <div className="workInProgress">
+          <h3 className="flex items-center">
+            <b>{selectedCountryName || ''}</b>
+            &nbsp;
+            {allIssuesCountry[`${selectedCountryName}`] ? '🚧' : null}
+          </h3>
+          {allIssuesCountry[`${selectedCountryName}`] && isMobileView ? (
+            <>
+              <p>Work in progress</p>
+            </>
+          ) : (
+            isMobileView && (
+              <>
+                <p>Not issuing e-passport</p>
+              </>
+            )
+          )}
+        </div>
+      );
     }
 
-    return (
-      <div>
-        <h3 className="flex items-center">
-          <b>{selectedCountryName || ''}</b>
-          &nbsp;
-          {
-            allIssuesCountry[`${selectedCountryName}`]
-              ? "🚧"
-              : null
-          }
-        </h3>
-      </div>
-    );
+    if (size.width && size.width < 767 && selectedCountryName != '') {
+      const mobInfoEl = document.getElementById('countryDetails');
+      if (mobInfoEl?.innerHTML) {
+        mobInfoEl.innerHTML = renderToStaticMarkup(info);
+      }
+    }
+
+    return info;
   };
 
   return (
     <div data-tip="" className="globalMap">
-      <div
-        id="tooltip-default"
-        role="tooltip"
-        className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
+      <ComposableMap
+        projectionConfig={{ center: isMobileView ? [10, 0] : [25, 10] }}
+        width={isMobileView ? 750 : 880}
+        height={500}
       >
-        Tooltip content
-        <div className="tooltip-arrow" data-popper-arrow></div>
-      </div>
-      <ComposableMap width={980} height={560}>
         <Graticule stroke="#999" strokeWidth={0.2} />
         <Sphere
           stroke="#fff"
@@ -263,9 +295,13 @@ export default function MapChart({}) {
           {({ geographies }) =>
             geographies.map((geo) => (
               <Tooltip
+                enterTouchDelay={0}
+                leaveTouchDelay={6000}
                 classes={{ tooltip: 'country-tooltip' }}
                 title={highLightInfo(selectedCountryInfo)}
-                placement="right"
+                disableTouchListener={isMobileView}
+                disableHoverListener={isMobileView}
+                placement={'right'}
                 arrow
                 key={geo.rsmKey}
                 TransitionComponent={Zoom}
@@ -274,9 +310,20 @@ export default function MapChart({}) {
                 <Geography
                   key={geo.rsmKey}
                   geography={geo}
-                  data-tooltip-target="tooltip-default"
+                  onClick={() => {
+                    if (!isMobileView) {
+                      return;
+                    }
+                    handleToolTip(`${geo.properties.name}`);
+                    if (isMobileView) {
+                      highLightInfo(selectedCountryInfo);
+                    }
+                  }}
                   onMouseEnter={() => {
                     handleToolTip(`${geo.properties.name}`);
+                    if (isMobileView) {
+                      highLightInfo(selectedCountryInfo);
+                    }
                   }}
                   style={{
                     default: {
@@ -304,4 +351,39 @@ export default function MapChart({}) {
       </ComposableMap>
     </div>
   );
+}
+
+// Hook for getting window size
+function useWindowSize() {
+  // Initialize state with undefined width/height so server and client renders match
+  const [windowSize, setWindowSize] = useState<{
+    width: number | undefined;
+    height: number | undefined;
+  }>({
+    width: undefined,
+    height: undefined,
+  });
+
+  useEffect(() => {
+    function handleResize() {
+      // Set window width/height to state
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+
+    // Only execute on the client-side
+    if (typeof window !== 'undefined') {
+      // Add event listener
+      window.addEventListener('resize', handleResize);
+
+      // Call handler right away so state gets updated with initial window size
+      handleResize();
+
+      // Remove event listener on cleanup
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []); // Empty array ensures that effect is only run on mount
+  return windowSize;
 }

@@ -9,7 +9,6 @@ import {
   Graticule,
   Sphere,
 } from 'react-simple-maps';
-import { CheckIcon, StopIcon } from './ui/svg-icons';
 
 const geoUrl = 'data/countries-110m.json';
 
