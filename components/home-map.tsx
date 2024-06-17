@@ -9,7 +9,7 @@ import {
   Graticule,
   Sphere,
 } from 'react-simple-maps';
-import { renderToStaticMarkup } from 'react-dom/server';
+import { createRoot } from 'react-dom/client';
 
 const geoUrl = 'data/countries-110m.json';
 
@@ -264,8 +264,9 @@ export default function MapChart() {
 
     if (size.width && size.width < 767 && selectedCountryName != '') {
       const mobInfoEl = document.getElementById('countryDetails');
-      if (mobInfoEl?.innerHTML) {
-        mobInfoEl.innerHTML = renderToStaticMarkup(info);
+      if (mobInfoEl) {
+        const root = createRoot(mobInfoEl);
+        root.render(info);
       }
     }
 
